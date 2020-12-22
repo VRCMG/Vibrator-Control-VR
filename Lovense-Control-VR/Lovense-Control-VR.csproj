@@ -72,6 +72,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Lovense\Lovense.csproj">
+      <Project>{B81F2833-D404-49C8-84BA-3FA1C3461050}</Project>
+      <Name>Lovense</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OpenVRApiModule\OpenVRApiModule.csproj">
       <Project>{AA36E7D2-6A2F-4A19-BC52-444E590D7FF6}</Project>
       <Name>OpenVRApiModule</Name>
