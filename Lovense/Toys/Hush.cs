@@ -8,5 +8,9 @@ namespace Lovense.Toys
 {
     class Hush : Toy
     {
+        public Hush()
+        {
+            Type = "Hush";
+        }
     }
 }

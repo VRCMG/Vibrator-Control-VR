@@ -9,8 +9,8 @@ namespace Lovense.Toys
     public class Toy
     {
         //TODO individual classes withoptions
-        public string Id { get; }
-        public string Name { get; }
-        public string Type { get; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
     }
 }

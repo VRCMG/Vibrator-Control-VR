@@ -19,7 +19,7 @@ namespace Lovense_Control_VR
         static void Main(string[] args)
         {
 
-            LovenseController lovense = LovenseController.WithTokenBackend(new Dictionary<string, string>() {["Token"]="TODO" });
+            LovenseController lovense = LovenseController.WithTokenBackend(new Dictionary<string, string>() {["Token"]="<token>" });
             Toy toy = lovense.GetToys()[0];
 
 

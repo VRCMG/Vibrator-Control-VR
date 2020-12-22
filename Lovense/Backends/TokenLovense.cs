@@ -45,9 +45,9 @@ namespace Lovense.Backends
             JObject json = JObject.Parse(response.Content);
 
             JObject toys = (JObject)json["data"]["toyData"];
-            foreach (var toy in toys.Children())
+            foreach (var toy in toys)
             {
-                //toys.Add(new Toy() { Id = toy.k})
+                toys.Add(new Hush() { Id = toy.Key });
             }
         }
 
