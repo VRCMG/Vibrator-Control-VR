@@ -1,0 +1,23 @@
+{
+   "action_sets" : [
+      {
+         "name" : "/actions/lovense",
+         "usage" : "single"
+      }
+   ],
+   "actions" : [
+      {
+         "name" : "/actions/lovense/in/Strength",
+         "requirement" : "suggested",
+         "type" : "vector2"
+      }
+   ],
+   "default_bindings" : [
+   ],
+   "localization" : [
+      {
+         "/actions/lovense/in/Strength" : "Strength",
+         "language_tag" : "en_us"
+      }
+   ]
+}

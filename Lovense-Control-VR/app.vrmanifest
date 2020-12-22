@@ -1,0 +1,18 @@
+{
+	"applications": [
+		{
+			"app_key": "er1807.lovensevr",
+			"launch_type": "binary",
+			"binary_path_windows": "Lovense Control VR.exe",
+			"is_dashboard_overlay": false,
+			"action_manifest_path": "./actions.json",
+
+			"strings": {
+				"en_us": {
+					"name": "Lovende Control VR,
+					"description": "Trying to get this thing working."
+				}
+			}
+		}
+	]
+}

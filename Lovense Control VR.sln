@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lovense", "Lovense\Lovense.csproj", "{B81F2833-D404-49C8-84BA-3FA1C3461050}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenVRApiModule", "OpenVRApiModule\OpenVRApiModule.csproj", "{AA36E7D2-6A2F-4A19-BC52-444E590D7FF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lovense-Control-VR", "Lovense-Control-VR\Lovense-Control-VR.csproj", "{F6B9A301-1B75-4ED0-ABC5-FBEC5C4FC3F6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B81F2833-D404-49C8-84BA-3FA1C3461050}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B81F2833-D404-49C8-84BA-3FA1C3461050}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B81F2833-D404-49C8-84BA-3FA1C3461050}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B81F2833-D404-49C8-84BA-3FA1C3461050}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA36E7D2-6A2F-4A19-BC52-444E590D7FF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA36E7D2-6A2F-4A19-BC52-444E590D7FF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA36E7D2-6A2F-4A19-BC52-444E590D7FF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA36E7D2-6A2F-4A19-BC52-444E590D7FF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6B9A301-1B75-4ED0-ABC5-FBEC5C4FC3F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6B9A301-1B75-4ED0-ABC5-FBEC5C4FC3F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6B9A301-1B75-4ED0-ABC5-FBEC5C4FC3F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6B9A301-1B75-4ED0-ABC5-FBEC5C4FC3F6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AE9C156E-D9B4-4F9C-BD5C-4D0BCA3831B0}
+	EndGlobalSection
+EndGlobal
