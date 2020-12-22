@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Lovense.Backends
 {
-    class TokenLovense : ILovenseBackend
+    public class TokenLovense : ILovenseBackend
     {
         private CookieContainer _cookieJar = new CookieContainer();
         public string shortToken;

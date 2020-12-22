@@ -1,5 +1,6 @@
 ﻿using Lovense;
 using Lovense.Backends;
+using Lovense.Toys;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
@@ -12,20 +13,25 @@ using System.Threading.Tasks;
 
 namespace Lovense
 {
-    public class Lovense
+    public class LovenseController
     {
 
         private ILovenseBackend backend;
 
-        private Lovense(ILovenseBackend backend, Dictionary<string, string> settings)
+        private LovenseController(ILovenseBackend backend, Dictionary<string, string> settings)
         {
             this.backend = backend;
             backend.Setup(settings);
         }
 
-        public static Lovense WithBackend(ILovenseBackend backend, Dictionary<string, string> settings)
+        public static LovenseController WithBackend(ILovenseBackend backend, Dictionary<string, string> settings)
         {
-            return new Lovense(backend, settings);
+            return new LovenseController(backend, settings);
+        }
+
+        public static LovenseController WithTokenBackend(Dictionary<string, string> settings)
+        {
+            return new LovenseController(new TokenLovense(), settings);
         }
 
         public void SendCommand(Command cmd)
@@ -35,6 +41,11 @@ namespace Lovense
                 throw new Exception("Toy not registered with this backend");
             }
             backend.SendCommand(cmd);
+        }
+
+        public List<Toy> GetToys()
+        {
+            return backend.GetToys();
         }
 
 

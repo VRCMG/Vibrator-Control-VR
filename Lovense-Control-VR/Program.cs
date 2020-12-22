@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Lovense;
+using Lovense.Backends;
+using Lovense.Toys;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,12 +18,25 @@ namespace Lovense_Control_VR
     {
         static void Main(string[] args)
         {
+
+            LovenseController lovense = LovenseController.WithTokenBackend(new Dictionary<string, string>() {["Token"]="TODO" });
+            Toy toy = lovense.GetToys()[0];
+
+
             Controller controller = new Controller();
             controller.Setup();
+            int lastStrength = 0;
             while (!Console.KeyAvailable)
             {
                 Thread.Sleep(100);
-                controller.Loop();
+                int strength = controller.Loop();
+                if (strength != lastStrength)
+                {
+                    Command cmd = new CommandBuilder().ForToy(toy).WithStrength(strength).Build();
+                    lovense.SendCommand(cmd);
+                    lastStrength = strength;
+                    Thread.Sleep(500);
+                }
             }
 
             controller.Shutdown();

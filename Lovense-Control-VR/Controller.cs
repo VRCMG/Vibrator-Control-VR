@@ -61,7 +61,7 @@ namespace Lovense_Control_VR
             OpenVR.Shutdown();
         }
 
-        public void Loop()
+        public int Loop()
         {
             var ioErr = OpenVR.Input.UpdateActionState(actionSetArray, (uint)Marshal.SizeOf(typeof(VRActiveActionSet_t)));
             if (ioErr != EVRInputError.None) throw new Exception();
@@ -73,6 +73,8 @@ namespace Lovense_Control_VR
             int level = Utils.GetLovenseLevel(value, -0.8f, 0.5f);
 
             Console.WriteLine($"currentValue: {value} LovenseLevel:{level}");
+
+            return level;
         }
 
         private void GetAnalogInput(ulong handle, ref InputAnalogActionData_t action, ulong restrict)
