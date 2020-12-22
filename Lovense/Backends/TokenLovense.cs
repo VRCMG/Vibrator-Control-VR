@@ -82,6 +82,7 @@ namespace Lovense.Backends
         {
             this.shortToken = parameter["token"];
             GetToken();
+            //Needed if token is temporary a secred coockie will be set on the second request
             PerformGETRequest($"https://c.lovense.com/app/ws/play/{longToken}");
             PerformGETRequest($"https://c.lovense.com/app/ws2/play/{longToken}");
             LoadToys();

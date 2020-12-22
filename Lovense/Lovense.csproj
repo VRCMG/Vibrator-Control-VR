@@ -53,6 +53,7 @@
     <Compile Include="Command.cs" />
     <Compile Include="Lovense.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Toys\Hush.cs" />
     <Compile Include="Toys\Toy.cs" />
   </ItemGroup>
   <ItemGroup>
