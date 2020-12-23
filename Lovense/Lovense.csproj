@@ -48,12 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backends\ConnectBackend.cs" />
     <Compile Include="Backends\ILovenseBackend.cs" />
     <Compile Include="Backends\TokenLovense.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="LovenseController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Toys\Hush.cs" />
     <Compile Include="Toys\Toy.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -34,6 +34,11 @@ namespace Lovense
             return new LovenseController(new TokenLovense(), settings);
         }
 
+        public static LovenseController WithConnectBackend(Dictionary<string, string> settings)
+        {
+            return new LovenseController(new ConnectBackend(), settings);
+        }
+
         public void SendCommand(Command cmd)
         {
             if (!backend.GetToys().Contains(cmd.toy))

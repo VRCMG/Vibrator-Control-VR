@@ -18,11 +18,12 @@ namespace Lovense_Control_VR
     {
         static void Main(string[] args)
         {
-
-            LovenseController lovense = LovenseController.WithTokenBackend(new Dictionary<string, string>() {["Token"]="<token>" });
+            LovenseController lovense = LovenseController.WithConnectBackend(new Dictionary<string, string>() { ["host"] = "10.100.100.11" });
+            
             Toy toy = lovense.GetToys()[0];
-
-
+            //lovense.SendCommand(new CommandBuilder(toy).WithAction(LovenseAction.Vibrate).WithStrength(10).Build());
+            //Console.WriteLine(toy.Id);
+            
             Controller controller = new Controller();
             controller.Setup();
             int lastStrength = 0;
@@ -32,10 +33,11 @@ namespace Lovense_Control_VR
                 int strength = controller.Loop();
                 if (strength != lastStrength)
                 {
-                    Command cmd = new CommandBuilder().ForToy(toy).WithStrength(strength).Build();
+                    Console.WriteLine(strength);
+                    Command cmd = new CommandBuilder(toy).WithStrength(strength).Build();
                     lovense.SendCommand(cmd);
                     lastStrength = strength;
-                    Thread.Sleep(500);
+                    // Thread.Sleep(500); //If you use the token api. Don't want to overload it
                 }
             }
 

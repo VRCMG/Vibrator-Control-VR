@@ -47,7 +47,7 @@ namespace Lovense.Backends
             JObject toys = (JObject)json["data"]["toyData"];
             foreach (var toy in toys)
             {
-                toys.Add(new Hush() { Id = toy.Key });
+                toys.Add(new Toy(toy.Key, ToyTypes.Hush));
             }
         }
 
@@ -56,7 +56,7 @@ namespace Lovense.Backends
             JObject toyaction = new JObject();
             switch (cmd.action)
             {
-                case Action.Vibrate:
+                case LovenseAction.Vibrate:
                     toyaction.Add("v", cmd.strength);
                     toyaction.Add("p", -1);
                     toyaction.Add("r", -1);

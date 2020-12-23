@@ -7,40 +7,57 @@ using System.Threading.Tasks;
 
 namespace Lovense
 {
-    public enum Action
+    public enum LovenseAction
     {
-        Vibrate, Rotate, TODO
+        Vibrate, Vibrate1, Vibrate2, Rotate, RotateChange, AirAuto, AirIn, AirOut
+    }
+    public enum Rotate
+    {
+        Normal, Clockwise, AntiClockwise
     }
 
     public struct Command
     {
         public Toy toy;
         public int strength;
-        public Action action;
+        public LovenseAction action;
+        public Rotate rotate;
     }
 
     public class CommandBuilder
     {
         Command command = new Command();
 
+        public CommandBuilder(Toy toy)
+        {
+            command.toy = toy;
+        }
+
         public Command Build()
         {
             return command;
         }
 
-        public CommandBuilder ForToy(Toy toy)
+        
+        public CommandBuilder WithAction(LovenseAction action)
         {
-            command.toy = toy;
+           command.action = action;
 
-            if (toy is Hush) command.action = Action.Vibrate;
+            return this;
+        }
+
+        public CommandBuilder WithRotationDirection(Rotate rotate)
+        {
+            command.rotate = rotate;
 
             return this;
         }
 
         public CommandBuilder WithStrength(int strength)
         {
-            //Only for vib
-            if (strength > 20) strength = 20;
+            int maxstrength = command.action==LovenseAction.AirAuto ? 3:20;
+
+            if (strength > maxstrength) strength = maxstrength;
             if (strength < 0) strength = 0;
             command.strength = strength;
 

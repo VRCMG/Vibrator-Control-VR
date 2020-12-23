@@ -6,11 +6,20 @@ using System.Threading.Tasks;
 
 namespace Lovense.Toys
 {
+    public enum ToyTypes
+    {
+        Hush, Osci, Nora, Max2, Max, Lush, Domi
+    }
+
     public class Toy
     {
-        //TODO individual classes withoptions
+        public Toy(string id, ToyTypes type)
+        {
+            Id = id;
+            Type = type;
+        }
+
         public string Id { get; set; }
-        public string Name { get; set; }
-        public string Type { get; set; }
+        public ToyTypes Type { get; set; }
     }
 }
