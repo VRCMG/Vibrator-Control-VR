@@ -50,7 +50,7 @@
   <ItemGroup>
     <Compile Include="Backends\ConnectBackend.cs" />
     <Compile Include="Backends\ILovenseBackend.cs" />
-    <Compile Include="Backends\TokenLovense.cs" />
+    <Compile Include="Backends\ApiLovense.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="LovenseController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
