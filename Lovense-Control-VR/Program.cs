@@ -19,13 +19,17 @@ namespace Lovense_Control_VR
         static void Main(string[] args)
         {
             LovenseController lovense = null;
-            Console.Write("Whick backend Token or Connect? [t c]: ");
+            Console.Write("Whick backend API Server or Connect Direct? [a d]: ");
             string input = Console.ReadLine();
-            if (input == "t"){
-                Console.Write("Enter the Lovense token you want to control: ");
-                lovense = LovenseController.WithTokenBackend(new Dictionary<string, string>() { ["token"] = Console.ReadLine() });
+            if (input == "a")
+            {
+                Console.Write("Enter the server: ");
+                string host = Console.ReadLine();
+                Console.Write("Enter the accesstoken: ");
+                string accesstoken = Console.ReadLine();
+                lovense = LovenseController.WithApiBackend(new Dictionary<string, string>() { ["host"] = host, ["accesstoken"] = accesstoken });
             }
-            else if(input == "c")
+            else if(input == "d")
             {
                 Console.Write("Enter the host you want to control: ");
                 lovense = LovenseController.WithConnectBackend(new Dictionary<string, string>() { ["host"] = Console.ReadLine() });
