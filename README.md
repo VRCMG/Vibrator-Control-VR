@@ -21,4 +21,4 @@ For the ConnectBackend I can't test currently but it should work. The idea behin
 Since the Connectbacked normally only works locally a vpn Connection or something simelar is required.
 
 This is not developed by or associated with Lovense or Hytto. 
-Thius is a educational project for fun
+This is a educational project for fun
