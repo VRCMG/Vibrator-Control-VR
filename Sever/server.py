@@ -24,14 +24,29 @@ if token is None:
     print("Not token provided")
     sys.exit(-1)
 
-def getToyForID(accesscode):
+def getEntryfromDB(accesscode):
     global toys
 
     query = { "_id": accesscode }
 
-    toy = toys.find(query)
+    enties = toys.find(query)
 
-    return toy[0]["toy"]
+    for entry in enties:
+        return entry
+    else:
+        return None
+
+def getToyForID(accesscode):
+    entry = getEntryfromDB(accesscode)
+    if(entry is None):
+        return None
+    return getEntryfromDB(accesscode)[0]["toy"]
+
+
+def deleteAccesscodeFromDB(accesscode):
+    global toys
+    query = { "_id": accesscode }
+    toys.delete_one(query)
 
 @app.route('/')
 def hello():
@@ -39,11 +54,17 @@ def hello():
     uid = uuid.uuid4().hex
     utoken = sha256(f"{uid}:{secret}".encode('utf-8')).hexdigest()
 
-    url = f"https://api.lovense.com/api/lan/getQrCode?token={token}&uid={uid}&uname=test&utoken={utoken}"
+    url = f"https://api.lovense.com/api/lan/getQrCode?token={token}&uid={uid}&uname=user&utoken={utoken}"
     response = requests.request("POST", url)
     url = response.json()["message"]
     print(url)
     return render_template("index.html", url=url, accesscode=uid)
+
+@app.route('/remove/<accesscode>')
+def removeAccesscode(accesscode): 
+    deleteAccesscodeFromDB(accesscode)
+    return 'Deleted'
+
 
 def startSession(session):
     url = f"https://api.lovense.com/developer/v2/play/{session}"
@@ -91,14 +112,20 @@ def sendCommand():
 def callback():
     global toys, secret
     content = request.get_json()
-    print(request.json)
-    toy = ""
+    print(content)
+    toy = []
     for (k, _) in content['toys'].items():
-        toy = k
+        toy.append(k)
     uid = content['uid']
     utoken = content['utoken']
 
     utokenCheck = sha256(f"{uid}:{secret}".encode('utf-8')).hexdigest()
+    
+    entry = getEntryfromDB(uid)
+    if(entry is not None):
+        #refresh check against old utoken
+        utokenCheck = entry['utoken']
+
 
     print("UID: "+uid)
     print("utoken: " + utoken)
@@ -108,8 +135,10 @@ def callback():
         return "Invalid"
 
     print("Registering")
-    print("Toy: " + toy)
+    print("Toy: " + str(toy))
     entry = { "uid": uid, "utoken": utoken, "toy":toy, "_id":uid }
+    if(entry is not None):
+        deleteAccesscodeFromDB(uid)
     toys.insert_one(entry)
     print("Registered")
     return ''
