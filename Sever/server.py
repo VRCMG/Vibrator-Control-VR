@@ -62,7 +62,13 @@ def hello():
 
 @app.route('/remove/<accesscode>')
 def removeAccesscode(accesscode): 
+    global sessions
+
     deleteAccesscodeFromDB(accesscode)
+
+    if accesscode in sessions:
+        del sessions[accesscode]
+
     return 'Deleted'
 
 
