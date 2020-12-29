@@ -13,9 +13,19 @@ The Server exposes under the root destination a page to generate new accesstoken
 
 Every toy is currently assumed to be a Hush and only the Vibrate Command is used.
 
+You can use the server under https://lovense.er1807.de to get an accesstoken.
+
+Scan the QR Code with the Connect App and share the accesstoken with the person you want to control
+
+In the programm use the API Backend and enter lovense.er1807.de as the host and the accesstoken you got in the earlier step
+
+If you want to remove access again first remove the entry in the Connect app and afterwarts visit the remove link to remove the database entry.
+Doing it the other way around might still allow it to registered again in the database.
+
+
 # Connect Backend
 
-The Connect Backend uses the Connect App for mobile or PC.
+The Connect Backend uses the Connect App for mobile or PC directly.
 
 For the ConnectBackend I can't test currently but it should work. The idea behind it is from the https://github.com/sextech/lovense
 
