@@ -19,7 +19,7 @@ namespace Lovense_Control_VR
         static void Main(string[] args)
         {
             LovenseController lovense = null;
-            Console.Write("Whick backend API Server or Connect Direct? [a d]: ");
+            Console.Write("Which backend API Server or Connect Direct? [a d]: ");
             string input = Console.ReadLine();
             if (input == "a")
             {
