@@ -1,4 +1,4 @@
-# Lovense-Control-VR (unofficial) still WIP
+# Vibrator-Control-VR still WIP
 
 This programm is still heavily WIP. It should work but...
 
