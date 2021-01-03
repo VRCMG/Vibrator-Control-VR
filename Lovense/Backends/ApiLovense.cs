@@ -38,10 +38,16 @@ namespace Lovense.Backends
 
             var request = new RestRequest(Method.POST);
             if (command.action == LovenseAction.Vibrate)
-                request.AddJsonBody(request.JsonSerializer.Serialize(new { accesscode = accesstoken, action = "Vibrate", value = $"{command.strength}" }));
+                request.AddJsonBody(new { accesscode = accesstoken, action = "Vibrate", value = $"{command.strength}" });
+            else if (command.action == LovenseAction.Vibrate1)
+                request.AddJsonBody(new { accesscode = accesstoken, action = "Vibrate1", value = $"{command.strength}" });
+            else if (command.action == LovenseAction.Vibrate2)
+                request.AddJsonBody(new { accesscode = accesstoken, action = "Vibrate2", value = $"{command.strength}" });
             else
                 return; //Unsuported
-            IRestResponse response = client.Execute(request);
+
+            
+            client.ExecuteAsync(request);
         }
 
     }

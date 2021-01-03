@@ -10,6 +10,16 @@
          "name" : "/actions/lovense/in/Strength",
          "requirement" : "suggested",
          "type" : "vector2"
+      },
+      {
+         "name" : "/actions/lovense/in/Strength2",
+         "requirement" : "suggested",
+         "type" : "vector2"
+      },
+      {
+         "name" : "/actions/lovense/in/SwitchMode",
+         "requirement" : "suggested",
+         "type" : "boolean"
       }
    ],
    "default_bindings" : [
@@ -17,6 +27,8 @@
    "localization" : [
       {
          "/actions/lovense/in/Strength" : "Strength",
+         "/actions/lovense/in/Strength2" : "Strength2",
+         "/actions/lovense/in/SwitchMode" : "SwitchMode",
          "language_tag" : "en_us"
       }
    ]
