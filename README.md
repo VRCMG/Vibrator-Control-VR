@@ -1,6 +1,4 @@
-# Vibrator-Control-VR still WIP
-
-This programm is still heavily WIP. It should work but...
+# Vibrator-Control-VR
 
 Control Lovense toys via your VR controllers.
 Default settings use the right trackpad on index controllers

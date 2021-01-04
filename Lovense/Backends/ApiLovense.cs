@@ -47,7 +47,7 @@ namespace Lovense.Backends
                 return; //Unsuported
 
             
-            client.ExecuteAsync(request);
+            client.Execute(request);
         }
 
     }

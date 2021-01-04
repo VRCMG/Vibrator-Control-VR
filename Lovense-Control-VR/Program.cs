@@ -80,12 +80,14 @@ namespace Lovense_Control_VR
 
         private void SetupBackend()
         {
-            Console.Write("Which backend API Server or Connect Direct? [a d]: ");
+            Console.Write("Which backend API Server or Connect Direct? [a d] (default = a): ");
             string input = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(input)) input = "a";
             if (input == "a")
             {
-                Console.Write("Enter the server: ");
+                Console.Write("Enter the server (default = lovense.er1807.de): ");
                 string host = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(host)) host = "lovense.er1807.de";
                 Console.Write("Enter the accesstoken: ");
                 string accesstoken = Console.ReadLine();
                 lovense = LovenseController.WithApiBackend(new Dictionary<string, string>() { ["host"] = host, ["accesstoken"] = accesstoken });
@@ -98,7 +100,9 @@ namespace Lovense_Control_VR
             else
             {
                 Console.WriteLine("Invalid option");
-                return;
+                Console.ReadKey();
+                Environment.Exit(-1);
+                
             }
             toy = lovense.GetToys()[0];
         }

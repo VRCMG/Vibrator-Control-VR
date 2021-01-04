@@ -27,7 +27,7 @@ if token is None:
 def getEntryfromDB(accesscode):
     global toys
 
-    query = { "_id": accesscode }
+    query = { "$or": [{"_id": accesscode}, {"short": accesscode}] }
 
     enties = toys.find(query)
 
@@ -36,29 +36,28 @@ def getEntryfromDB(accesscode):
     else:
         return None
 
-def getToyForID(accesscode):
-    entry = getEntryfromDB(accesscode)
-    if(entry is None):
-        return None
-    return getEntryfromDB(accesscode)[0]["toy"]
-
 
 def deleteAccesscodeFromDB(accesscode):
     global toys
-    query = { "_id": accesscode }
+    query = { "$or": [{"_id": accesscode}, {"short": accesscode}] }
     toys.delete_one(query)
 
+def insertToy(uid, utoken, toy, short):
+    global toys
+    entry = { "uid": uid, "utoken": utoken, "toy":toy, "_id":uid, "short": short }
+    toys.insert_one(entry)
+
 @app.route('/')
-def hello():
+def default():
     global secret
     uid = uuid.uuid4().hex
+    short = uid[:6]
     utoken = sha256(f"{uid}:{secret}".encode('utf-8')).hexdigest()
 
     url = f"https://api.lovense.com/api/lan/getQrCode?token={token}&uid={uid}&uname=user&utoken={utoken}"
     response = requests.request("POST", url)
     url = response.json()["message"]
-    print(url)
-    return render_template("index.html", url=url, accesscode=uid)
+    return render_template("index.html", url=url, accesscode=uid, short=short)
 
 @app.route('/remove/<accesscode>')
 def removeAccesscode(accesscode): 
@@ -71,41 +70,23 @@ def removeAccesscode(accesscode):
 
     return 'Deleted'
 
-
-def startSession(session):
-    url = f"https://api.lovense.com/developer/v2/play/{session}"
-    _ = requests.request("GET", url)
-
-
-def createSession(accesscode):
-    global token
-    
-    toy = getToyForID(accesscode)
-
-    url = f"https://api.lovense.com/developer/v2/createSession?token={token}&customerid=0&expires=0&toyId={toy}"
-
-    response = requests.request("POST", url)
-    sid = response.json()["data"]["sid"]
-    startSession(sid)
-    print(sid)
-    return sid
-
-def endSession():
-    pass
-
-
 @app.route('/sendCommand', methods = ['POST'])
 def sendCommand():
     global sessions
+
 
     accesscode = request.json["accesscode"]
     action = request.json["action"]
     value = request.json["value"]
 
-    if accesscode not in sessions:
-        sessions[accesscode] = createSession(accesscode)
+    entry = getEntryfromDB(accesscode)
+    if(entry is None):
+        return 'Invalid code'
 
-    url = f"https://api.lovense.com/developer/v2/sendCommand/{sessions[accesscode]}?type={action}&value={value}"
+    accesscode = entry['uid']
+    toy = entry['toy'][0]
+
+    url = f"https://api.lovense.com/api/lan/command?token={token}&uid={accesscode}&t={toy}&v={value}&command={action}"
 
     response = requests.request("POST", url)
 
@@ -118,7 +99,6 @@ def sendCommand():
 def callback():
     global toys, secret
     content = request.get_json()
-    print(content)
     toy = []
     for (k, _) in content['toys'].items():
         toy.append(k)
@@ -133,20 +113,19 @@ def callback():
         utokenCheck = entry['utoken']
 
 
-    print("UID: "+uid)
-    print("utoken: " + utoken)
-    print("Expected: " + utokenCheck)
     if(utoken != utokenCheck):
-        print("Invalid token")
+        print("[Callback] UID: "+uid)
+        print("[Callback] utoken: " + utoken)
+        print("[Callback] Expected: " + utokenCheck)
+        print("[Callback] Invalid token")
         return "Invalid"
 
-    print("Registering")
-    print("Toy: " + str(toy))
-    entry = { "uid": uid, "utoken": utoken, "toy":toy, "_id":uid }
     if(entry is not None):
+        print("[Callback] Updateing toys")
         deleteAccesscodeFromDB(uid)
-    toys.insert_one(entry)
-    print("Registered")
+    else:
+        print("[Callback] Registering toys")
+    insertToy(uid, utoken, toy, uid[:6])
     return ''
 
 
