@@ -25,7 +25,7 @@ Doing it the other way around might still allow it to registered again in the da
 
 The Connect Backend uses the Connect App for mobile or PC directly.
 
-For the ConnectBackend I can't test currently but it should work. The idea behind it is from the https://github.com/sextech/lovense
+The idea behind it is from the https://github.com/sextech/lovense
 
 Since the Connectbacked normally only works locally a vpn Connection or something simelar is required.
 
