@@ -21,7 +21,7 @@ if(secret is None):
     secret = get_random_string()
 
 if token is None:
-    print("Not token provided")
+    print("No token provided")
     sys.exit(-1)
 
 def getEntryfromDB(accesscode):
@@ -44,7 +44,7 @@ def deleteAccesscodeFromDB(accesscode):
 
 def insertToy(uid, utoken, toy, short):
     global toys
-    entry = { "uid": uid, "utoken": utoken, "toy":toy, "_id":uid, "short": short }
+    entry = { "uid": uid, "utoken": utoken, "toy":toy, "_id":uid, "short": short, "type": "LC" }
     toys.insert_one(entry)
 
 @app.route('/')

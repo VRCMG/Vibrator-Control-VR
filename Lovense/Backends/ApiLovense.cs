@@ -19,6 +19,7 @@ namespace Lovense.Backends
 
         public void Setup(Dictionary<string, string> parameter)
         {
+            Console.WriteLine("This backend is depricateded. Use the WS backend instead");
             host = parameter["host"];
             accesstoken = parameter["accesstoken"];
 

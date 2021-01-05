@@ -29,9 +29,9 @@ namespace Lovense
             return new LovenseController(backend, settings);
         }
 
-        public static LovenseController WithApiBackend(Dictionary<string, string> settings)
+        public static LovenseController WithWSApiBackend(Dictionary<string, string> settings)
         {
-            return new LovenseController(new ApiLovense(), settings);
+            return new LovenseController(new ApiWSBackend(), settings);
         }
 
         public static LovenseController WithConnectBackend(Dictionary<string, string> settings)

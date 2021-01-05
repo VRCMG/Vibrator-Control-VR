@@ -80,22 +80,35 @@ namespace Lovense_Control_VR
 
         private void SetupBackend()
         {
-            Console.Write("Which backend API Server or Connect Direct? [a d] (default = a): ");
+            Console.Write("Which backend WS API Server (a), Connect Direct (d) or host your toys (h)? [a]: ");
             string input = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(input)) input = "a";
             if (input == "a")
             {
-                Console.Write("Enter the server (default = lovense.er1807.de): ");
+                Console.Write("Enter the server (default = lovense-ws.er1807.de): ");
                 string host = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(host)) host = "lovense.er1807.de";
+                if (string.IsNullOrWhiteSpace(host)) host = "lovense-ws.er1807.de";
                 Console.Write("Enter the accesstoken: ");
                 string accesstoken = Console.ReadLine();
-                lovense = LovenseController.WithApiBackend(new Dictionary<string, string>() { ["host"] = host, ["accesstoken"] = accesstoken });
+                lovense = LovenseController.WithWSApiBackend(new Dictionary<string, string>() { ["host"] = host, ["accesstoken"] = accesstoken });
             }
             else if (input == "d")
             {
                 Console.Write("Enter the host you want to control: ");
                 lovense = LovenseController.WithConnectBackend(new Dictionary<string, string>() { ["host"] = Console.ReadLine() });
+            }
+            else if (input == "h")
+            {
+                Console.Write("Enter the server (default = lovense-ws.er1807.de): ");
+                string host = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(host)) host = "lovense-ws.er1807.de";
+                ApiWSBackend backend = new ApiWSBackend();
+                backend.SetupAsToyProvider(new Dictionary<string, string>() { ["host"] = host });
+                while (true)
+                {
+                    Thread.Sleep(5000);
+                }
+                    
             }
             else
             {
