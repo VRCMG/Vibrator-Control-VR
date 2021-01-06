@@ -3,6 +3,7 @@
 Control Lovense toys via your VR controllers.
 Default settings use the right trackpad on index controllers
 You can select between multiple backends. 
+You can also use the application to create a proxy connection to bypass the lovense api server. In this case the commands are send from the proxy server to the application running
 
 # API Backend
 
@@ -20,6 +21,10 @@ In the programm use the API Backend and enter lovense.er1807.de as the host and 
 If you want to remove access again first remove the entry in the Connect app and afterwarts visit the remove link to remove the database entry.
 Doing it the other way around might still allow it to registered again in the database.
 
+# Websocket API Backend
+The Websocket API also allows connection via the Lovense Backend like above but also allows connections in the proxy mode. In API Mode commands are send to the Lovense API. IN Proxy mode they are send to the other device running the app.
+
+THe Websocket Backend is generally faster, since it uses a persistent connection and in proxy modes bypasses the Lovense API
 
 # Connect Backend
 

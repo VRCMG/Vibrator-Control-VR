@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using WebSocketSharp;
 
 namespace Lovense.Backends
@@ -26,12 +26,13 @@ namespace Lovense.Backends
         public void SendCommand(Command command)
         {
             if (command.action == LovenseAction.Vibrate)
-                
-            websocket.Send(JsonConvert.SerializeObject(new { type= "send-command", uid = accesstoken, action = "Vibrate", value = $"{command.strength}" }));
+                websocket.Send(JsonConvert.SerializeObject(new { type= "send-command", uid = accesstoken, action = "Vibrate", value = $"{command.strength}" }));
             else if (command.action == LovenseAction.Vibrate1)
                 websocket.Send(JsonConvert.SerializeObject(new { type = "send-command", uid = accesstoken, action = "Vibrate1", value = $"{command.strength}" }));
             else if (command.action == LovenseAction.Vibrate2)
                 websocket.Send(JsonConvert.SerializeObject(new { type = "send-command", uid = accesstoken, action = "Vibrate2", value = $"{command.strength}" }));
+
+            Thread.Sleep(200);
         }
 
         public void Setup(Dictionary<string, string> parameter)

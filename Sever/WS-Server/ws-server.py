@@ -61,32 +61,37 @@ async def sendCommand(jsonobj):
 async def handler(websocket, path):
     global websocket_toys
     local_toys = []
-    while True:
-        message = await websocket.recv()
-        jsonobj = json.loads(message)
+    try:
+        while True:
+            message = await websocket.recv()
+            jsonobj = json.loads(message)
 
-        messagetype = jsonobj["type"]
+            messagetype = jsonobj["type"]
 
-        if (messagetype=="register-toy"):
-            uid = uuid.uuid4().hex
-            short = uid[:6]
-            insertToy(uid, 'ND', jsonobj["toy"], short)
-            websocket_toys[short] = (jsonobj["toy"], websocket)
-            local_toys.append(short)
-            await websocket.send(json.dumps({"type": "register-toy-result", "uid": short, "message": "inserted", "custom": jsonobj["custom"]}))
-        elif (messagetype=="remove-toy"):
-            uid = jsonobj["uid"]
-            if uid in local_toys:
-                deleteAccesscodeFromDB(uid)
-                if uid in websocket_toys:
-                    del websocket_toys[uid]
-                local_toys.remove(uid)
-                await websocket.send(json.dumps({"type": "remove-toy-result","message": "deleted"}))
-            else:
-                await websocket.send(json.dumps({"type": "remove-toy-result","message": "not your toy"}))
-        elif (messagetype=="send-command"):
-            await websocket.send(json.dumps({"type": "send-command-result","message": await sendCommand(jsonobj)}))
-
+            if (messagetype=="register-toy"):
+                uid = uuid.uuid4().hex
+                short = uid[:6]
+                insertToy(uid, 'ND', jsonobj["toy"], short)
+                websocket_toys[short] = (jsonobj["toy"], websocket)
+                local_toys.append(short)
+                await websocket.send(json.dumps({"type": "register-toy-result", "uid": short, "message": "inserted", "custom": jsonobj["custom"]}))
+            elif (messagetype=="remove-toy"):
+                uid = jsonobj["uid"]
+                if uid in local_toys:
+                    deleteAccesscodeFromDB(uid)
+                    if uid in websocket_toys:
+                        del websocket_toys[uid]
+                    local_toys.remove(uid)
+                    await websocket.send(json.dumps({"type": "remove-toy-result","message": "deleted"}))
+                else:
+                    await websocket.send(json.dumps({"type": "remove-toy-result","message": "not your toy"}))
+            elif (messagetype=="send-command"):
+                await websocket.send(json.dumps({"type": "send-command-result","message": await sendCommand(jsonobj)}))
+    except websockets.exceptions.ConnectionClosedError:
+        for uid in local_toys:
+            deleteAccesscodeFromDB(uid)
+            if uid in websocket_toys:
+                del websocket_toys[uid]
 
 start_server = websockets.serve(handler, "0.0.0.0", 8765)
 
